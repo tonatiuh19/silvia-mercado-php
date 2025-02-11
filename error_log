@@ -1,0 +1,14 @@
+[11-Feb-2025 14:10:09 America/Mexico_City] PHP Fatal error:  Uncaught Error sending request to Stripe: (Status 402) (Request req_SVw8ZKnJiIP1V7) Your card has insufficient funds.
+Stripe\Exception\CardException: Your card has insufficient funds. in /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/Exception/ApiErrorException.php:38
+Stack trace:
+#0 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/Exception/CardException.php(38): Stripe\Exception\ApiErrorException::factory('Your card has i...', 402, '{\n  "error": {\n...', Array, Object(Stripe\Util\CaseInsensitiveArray), 'card_declined')
+#1 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/ApiRequestor.php(236): Stripe\Exception\CardException::factory('Your card has i...', 402, '{\n  "error": {\n...', Array, Object(Stripe\Util\CaseInsensitiveArray), 'card_declined', 'insufficient_fu...', NULL)
+#2 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/ApiRequestor.php(191): Stripe\ApiRequestor::_specificV1APIError('{\n  "error": {\n...', 402, Object(Stripe\Util\CaseInsensitiveArray), Array, Array)
+#3 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/ApiRequestor.php(637): Stripe\ApiRequestor->handleErrorResponse('{\n  "error": {\n...', 402, Object(Stripe\Util\CaseInsensitiveArray), Array, 'v1')
+#4 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/ApiRequestor.php(136): Stripe\ApiRequestor->_interpretResponse('{\n  "error": {\n...', 402, Object(Stripe\Util\CaseInsensitiveArray), 'v1')
+#5 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/BaseStripeClient.php(184): Stripe\ApiRequestor->request('post', '/v1/charges', Array, Array, 'v1', Array)
+#6 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/Service/AbstractService.php(75): Stripe\BaseStripeClient->request('post', '/v1/charges', Array, Object(Stripe\Util\RequestOptions))
+#7 /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/Service/ChargeService.php(68): Stripe\Service\AbstractService->request('post', '/v1/charges', Array, NULL)
+#8 /home3/alanchat/garbrix.com/silvia/api/insertPurchase.php(58): Stripe\Service\ChargeService->create(Array)
+#9 {main}
+  thrown in /home3/alanchat/garbrix.com/silvia/api/vendor/stripe/stripe-php/lib/Exception/ApiErrorException.php on line 38
