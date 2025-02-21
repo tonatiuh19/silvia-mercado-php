@@ -1,5 +1,4 @@
-[12-Feb-2025 21:43:14 America/Mexico_City] PHP Fatal error:  Uncaught ArgumentCountError: The number of elements in the type definition string must match the number of bind variables in /home3/alanchat/garbrix.com/silvia/api/updateCopoun.php:21
-Stack trace:
-#0 /home3/alanchat/garbrix.com/silvia/api/updateCopoun.php(21): mysqli_stmt->bind_param('isdissi', 1, 'MACHACA10', 20.0, 1, '2025-02-28', 2)
-#1 {main}
-  thrown in /home3/alanchat/garbrix.com/silvia/api/updateCopoun.php on line 21
+[20-Feb-2025 22:03:24 America/Mexico_City] PHP Warning:  file_put_contents(./temp/page_1.jpg): Failed to open stream: No such file or directory in /home3/alanchat/garbrix.com/silvia/api/vendor/spatie/pdf-to-image/src/Pdf.php on line 122
+[20-Feb-2025 22:03:36 America/Mexico_City] PHP Warning:  file_put_contents(./temp/page_2.jpg): Failed to open stream: No such file or directory in /home3/alanchat/garbrix.com/silvia/api/vendor/spatie/pdf-to-image/src/Pdf.php on line 122
+[20-Feb-2025 22:03:48 America/Mexico_City] PHP Warning:  file_put_contents(./temp/page_3.jpg): Failed to open stream: No such file or directory in /home3/alanchat/garbrix.com/silvia/api/vendor/spatie/pdf-to-image/src/Pdf.php on line 122
+[20-Feb-2025 22:04:00 America/Mexico_City] PHP Fatal error:  Maximum execution time of 60 seconds exceeded in /home3/alanchat/garbrix.com/silvia/api/vendor/spatie/pdf-to-image/src/Pdf.php on line 108

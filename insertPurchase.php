@@ -383,7 +383,7 @@ function sendConfirmationEmail($email, $name, $id_books, $last_id, $price, $date
                                         font-size: 1px;
                                       "
                                     >
-                                       
+                                  
                                     </div>
                                     <table
                                       border="0"
@@ -410,7 +410,7 @@ function sendConfirmationEmail($email, $name, $id_books, $last_id, $price, $date
                                         >
                                           <div align="center" class="alignment">
                                             <a
-                                              href="www.example.com"
+                                              href="https://garbrix.com/silvia/api/validateBookPurchase.php?id_purchase='.$last_id.'&email='.$email.'"
                                               style="
                                                 color: #251f20;
                                                 text-decoration: none;
@@ -474,7 +474,7 @@ function sendConfirmationEmail($email, $name, $id_books, $last_id, $price, $date
                                         font-size: 1px;
                                       "
                                     >
-                                       
+                                    
                                     </div>
                                     <table
                                       border="0"
