@@ -1167,57 +1167,64 @@ if ($method == 'POST') {
     $token = isset($input['token']) ? $input['token'] : '';
     $date = date('Y-m-d H:i:s'); // Get the current date and time
 
-    if ($id_books > 0 && !empty($name) && !empty($email) && $price > 0 && !empty($payment_type) && !empty($token)) {
+    if ($id_books > 0 && !empty($name) && !empty($email) && !empty($payment_type)) {
+      $stripe_id = '';
+
+      if (!empty($token)) {
         $stripe = new StripeClient("sk_test_51NO85CLKzoJjDTKGSoppGywMhLVRTqZncs5D4NQviIID27G6MuiXU2LSACuQMpBxBINXKLIdvF2S13KhuY69AESa00NP0P8K7P");
 
         try {
-            if ($payment_type === 'stripe') {
-                $charge = $stripe->charges->create([
-                    'amount' => $price * 100,
-                    'currency' => 'mxn',
-                    'source' => $token,
-                    'metadata' => [
-                        'name' => $name,
-                        'email' => $email
-                    ]
-                ]);
-                $stripe_id = $charge["id"];
-            } else {
-                $stripe_id = $token;
-            }
-
-            $sql = "
-                INSERT INTO book_purchases (id_books, name, email, price, stripe_id, date)
-                VALUES (?, ?, ?, ?, ?, ?)
-            ";
-
-            $stmt = $conn->prepare($sql);
-            $stmt->bind_param("issdss", $id_books, $name, $email, $price, $stripe_id, $date);
-            if ($stmt->execute()) {
-                $last_id = $conn->insert_id; // Get the last inserted ID
-
-                if (sendConfirmationEmail($email, $name, $id_books, $last_id, $price, $date)) {
-                    echo json_encode(true);
-                } else {
-                    echo json_encode(true);
-                }
-            } else {
-                echo json_encode(false);
-            }
-
-            $stmt->close();
+          if ($payment_type === 'stripe') {
+            $charge = $stripe->charges->create([
+              'amount' => $price * 100,
+              'currency' => 'mxn',
+              'source' => $token,
+              'metadata' => [
+                'name' => $name,
+                'email' => $email
+              ]
+            ]);
+            $stripe_id = $charge["id"];
+          } else {
+            $stripe_id = $token;
+          }
         } catch (CardException $e) {
-            echo json_encode(false);
+          echo json_encode(false);
+          exit;
         } catch (ApiErrorException $e) {
-            echo json_encode(false);
+          echo json_encode(false);
+          exit;
         } catch (Exception $e) {
-            echo json_encode(false);
+          echo json_encode(false);
+          exit;
         }
-    } else {
+      }
+
+      $sql = "
+        INSERT INTO book_purchases (id_books, name, email, price, stripe_id, date)
+        VALUES (?, ?, ?, ?, ?, ?)
+      ";
+
+      $stmt = $conn->prepare($sql);
+      $stmt->bind_param("issdss", $id_books, $name, $email, $price, $stripe_id, $date);
+      if ($stmt->execute()) {
+        $last_id = $conn->insert_id; // Get the last inserted ID
+
+        if (sendConfirmationEmail($email, $name, $id_books, $last_id, $price, $date)) {
+          echo json_encode(true);
+        } else {
+          echo json_encode(true);
+        }
+      } else {
         echo json_encode(false);
+      }
+
+      $stmt->close();
+    } else {
+      echo json_encode(false);
     }
 } else {
-    echo json_encode(false);
+  echo json_encode(false);
 }
 
 $conn->close();
